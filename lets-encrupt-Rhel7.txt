@@ -1,0 +1,22 @@
+export http_proxy="http://sqdause01.silabs.com:3128/";
+export https_proxy="http://sqdause01.silabs.com:3128/";
+sudo yum install epel-release 
+yum --enablerepo=epel install python2-certbot-dns-dnsmadeeasy.noarch
+
+
+[rhel7]
+#!/bin/bash
+TRADE_TYPE=$1
+mkdir /etc/letsencrypt
+echo 'dns_dnsmadeeasy_api_key = 2658b992-e273-454a-9b8c-c03a8973b6a6' >> /etc/letsencrypt/.dnsmadeeasy
+echo 'dns_dnsmadeeasy_secret_key = 7e08b646-35d6-4807-b975-52971c1b24a1' >> /etc/letsencrypt/.dnsmadeeasy
+export http_proxy="http://sqdause01.silabs.com:3128/";
+export https_proxy="http://sqdause01.silabs.com:3128/";
+yum --enablerepo=epel install python2-certbot-dns-dnsmadeeasy.noarch -y
+yum install certbot  --enablerepo=epel -y
+certbot certonly   --dns-dnsmadeeasy   --dns-dnsmadeeasy-credentials /etc/letsencrypt/.dnsmadeeasy  --email dl.unix_admin@silabs.com --agree-tos -n -d $TRADE_TYPE
+
+
+
+[rhel8]
+  yum --enablerepo=epel install certbot python3-certbot-dns-dnsmadeeasy.noarch
