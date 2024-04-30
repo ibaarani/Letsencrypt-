@@ -11,8 +11,6 @@ TRADE_TYPE=$1
 mkdir /etc/letsencrypt
 echo 'dns_dnsmadeeasy_api_key = xxxxxxxxxxxxxxxxxxxxxxxxx' >> /etc/letsencrypt/.dnsmadeeasy
 echo 'dns_dnsmadeeasy_secret_key = xxxxxxxxxxxxxxxxxxxxxxx' >> /etc/letsencrypt/.dnsmadeeasy
-export http_proxy="http://sqdause01.silabs.com:3128/";
-export https_proxy="http://sqdause01.silabs.com:3128/";
 yum --enablerepo=epel install python2-certbot-dns-dnsmadeeasy.noarch -y
 yum install certbot  --enablerepo=epel -y
 certbot certonly   --dns-dnsmadeeasy   --dns-dnsmadeeasy-credentials /etc/letsencrypt/.dnsmadeeasy  --email dl.unix_admin@silabs.com --agree-tos -n -d $TRADE_TYPE
